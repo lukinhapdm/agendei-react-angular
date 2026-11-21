@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "cd ../.. && pnpm turbo run build --filter=@agendei/web",
+  "outputDirectory": "dist",
+  "ignoreCommand": "npx turbo-ignore",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
