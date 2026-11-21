@@ -1,2 +1,21 @@
+# Claude (local only)
 CLAUDE.md
 .claude/
+
+# Dependencies
+node_modules/
+
+# Builds and caches
+dist/
+.turbo/
+.angular/
+coverage/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Logs and OS
+*.log
+.DS_Store
