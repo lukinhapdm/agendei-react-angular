@@ -8,6 +8,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agendei/shared": "workspace:*",
     "@angular/common": "^22.3.0",
     "@angular/compiler": "^22.3.0",
     "@angular/core": "^22.3.0",
