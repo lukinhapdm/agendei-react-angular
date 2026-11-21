@@ -1,0 +1,5 @@
+dist
+.angular
+.turbo
+coverage
+pnpm-lock.yaml

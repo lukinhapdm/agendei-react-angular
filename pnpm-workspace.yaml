@@ -1,3 +1,10 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
+
+# Binários já vêm prontos; evita o aviso de scripts ignorados
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - lmdb
+  - msgpackr-extract

@@ -4,7 +4,8 @@
     "dev": "ng serve --port 4200",
     "build": "ng build",
     "typecheck": "tsc -p tsconfig.app.json --noEmit",
-    "test": "ng test --watch=false"
+    "test": "ng test --watch=false",
+    "lint": "eslint ."
   },
   "private": true,
   "dependencies": {
