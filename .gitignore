@@ -19,3 +19,7 @@ coverage/
 # Logs and OS
 *.log
 .DS_Store
+
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/
