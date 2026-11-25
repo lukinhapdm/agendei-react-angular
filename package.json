@@ -13,7 +13,8 @@
     "test": "turbo run test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "pnpm format:check && turbo run lint typecheck test build"
+    "check": "pnpm format:check && turbo run lint typecheck test build",
+    "db:types": "supabase gen types --lang typescript --schema public --remote \"$SUPABASE_DB_URL\" > packages/shared/src/database.types.ts && prettier --write packages/shared/src/database.types.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -24,6 +25,7 @@
     "eslint-plugin-react-refresh": "^0.5.8",
     "globals": "^17.14.0",
     "prettier": "^3.10.1",
+    "supabase": "^3.4.0",
     "turbo": "^2.11.13",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.73.0"
