@@ -1,6 +1,6 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +16,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   selector: 'app-login-page',
   imports: [
     ReactiveFormsModule,
+    RouterLink,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

@@ -41,6 +41,20 @@ export class AuthService {
     }
   }
 
+  // Retorna true se a sessão já foi criada; false se o Supabase exige confirmar o e-mail
+  async signUp(fullName: string, email: string, password: string): Promise<boolean> {
+    const { data, error } = await this.supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: fullName, role: 'owner' },
+        emailRedirectTo: window.location.origin,
+      },
+    });
+    if (error) throw error;
+    return !!data.session;
+  }
+
   async signOut(): Promise<void> {
     await this.supabase.auth.signOut();
   }

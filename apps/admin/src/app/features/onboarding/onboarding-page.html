@@ -1,0 +1,53 @@
+<main class="page">
+  <mat-card class="card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Crie seu negócio</mat-card-title>
+      <mat-card-subtitle>Último passo antes de abrir sua agenda</mat-card-subtitle>
+    </mat-card-header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-card-content class="fields">
+        <mat-form-field>
+          <mat-label>Nome do negócio</mat-label>
+          <input matInput formControlName="name" placeholder="Ex.: Barbearia do Zé" />
+          @if (form.controls.name.hasError('required')) {
+            <mat-error>Informe o nome.</mat-error>
+          } @else if (form.controls.name.invalid) {
+            <mat-error>Use entre 2 e 80 caracteres.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Endereço da sua página</mat-label>
+          <span matTextPrefix>/b/</span>
+          <input matInput formControlName="slug" (input)="onSlugInput()" />
+          <mat-hint>Seus clientes vão agendar por este link</mat-hint>
+          @if (form.controls.slug.hasError('required')) {
+            <mat-error>Informe o endereço.</mat-error>
+          } @else if (form.controls.slug.hasError('pattern')) {
+            <mat-error>Use letras minúsculas, números e hífens.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Fuso horário</mat-label>
+          <mat-select formControlName="timezone">
+            @for (tz of timezones; track tz.value) {
+              <mat-option [value]="tz.value">{{ tz.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        @if (errorMessage()) {
+          <p class="error" role="alert">{{ errorMessage() }}</p>
+        }
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-flat-button type="submit" [disabled]="loading()" class="submit">
+          {{ loading() ? 'Criando...' : 'Criar negócio' }}
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</main>

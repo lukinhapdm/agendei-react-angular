@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NAV_ITEMS } from './nav-items';
 import { AuthService } from '../../core/auth/auth.service';
+import { BusinessStore } from '../../core/business/business.store';
 
 @Component({
   selector: 'app-shell',
@@ -30,6 +31,9 @@ export class Shell {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
+  private readonly businessStore = inject(BusinessStore);
+
+  protected readonly businessName = computed(() => this.businessStore.business()?.name);
   protected readonly userEmail = computed(() => this.auth.user()?.email);
   protected readonly navItems = NAV_ITEMS;
 

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Shell } from './layout/shell/shell';
 import { authGuard, guestGuard } from './core/auth/auth.guards';
+import { hasBusinessGuard, noBusinessGuard } from './core/business/business.guards';
 
 export const routes: Routes = [
   {
@@ -10,9 +11,23 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/login-page').then((m) => m.LoginPage),
   },
   {
+    path: 'signup',
+    title: 'Criar conta · Agendei',
+    canActivate: [guestGuard],
+    loadComponent: () => import('./features/auth/signup-page').then((m) => m.SignupPage),
+  },
+  {
+    path: 'onboarding',
+    title: 'Crie seu negócio · Agendei',
+    canActivate: [authGuard, noBusinessGuard],
+    loadComponent: () =>
+      import('./features/onboarding/onboarding-page').then((m) => m.OnboardingPage),
+  },
+  {
     path: '',
     component: Shell,
-    canActivate: [authGuard],
+    // Guards rodam em ordem: primeiro exige login, depois exige negócio criado
+    canActivate: [authGuard, hasBusinessGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {

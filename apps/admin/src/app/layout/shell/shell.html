@@ -25,7 +25,7 @@
           <mat-icon>menu</mat-icon>
         </button>
       }
-      <span>Painel do negócio</span>
+      <span>{{ businessName() }}</span>
       <span class="spacer"></span>
       <span class="email">{{ userEmail() }}</span>
       <button mat-icon-button aria-label="Sair" (click)="signOut()">
