@@ -17,6 +17,8 @@ export class BusinessStore {
   private loadedForUserId: string | null = null;
 
   async ensureLoaded(): Promise<Business | null> {
+    // Guards da mesma rota rodam em paralelo; sem isto o usuário ainda pode estar indefinido
+    await this.auth.ready;
     const userId = this.auth.user()?.id ?? null;
     if (!userId) {
       this.business.set(null);

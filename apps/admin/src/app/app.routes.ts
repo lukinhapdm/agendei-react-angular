@@ -26,7 +26,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Shell,
-    // Guards rodam em ordem: primeiro exige login, depois exige negócio criado
+    // Exige login e negócio criado; os guards de uma rota rodam em paralelo
     canActivate: [authGuard, hasBusinessGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
