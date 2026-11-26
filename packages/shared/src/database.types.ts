@@ -261,6 +261,7 @@ export type Database = {
         }[];
       };
       is_business_owner: { Args: { target_business_id: string }; Returns: boolean };
+      replace_working_hours: { Args: { p_business_id: string; p_hours: Json }; Returns: undefined };
     };
     Enums: {
       appointment_status: 'pending' | 'confirmed' | 'cancelled' | 'completed';

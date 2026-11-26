@@ -1,0 +1,54 @@
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate" />
+} @else {
+  <p class="hint">Defina um ou mais intervalos por dia. Dias sem intervalo ficam fechados.</p>
+
+  @for (day of days.controls; track $index; let weekday = $index) {
+    <section class="day">
+      <h3>{{ weekdays[weekday] }}</h3>
+
+      <div class="intervals">
+        @for (interval of day.controls; track interval; let i = $index) {
+          <div class="interval" [formGroup]="interval">
+            <mat-form-field subscriptSizing="dynamic">
+              <mat-label>Início</mat-label>
+              <input matInput type="time" formControlName="start" />
+            </mat-form-field>
+            <mat-form-field subscriptSizing="dynamic">
+              <mat-label>Fim</mat-label>
+              <input matInput type="time" formControlName="end" />
+            </mat-form-field>
+            <button
+              mat-icon-button
+              type="button"
+              (click)="removeInterval(weekday, i)"
+              [attr.aria-label]="'Remover intervalo de ' + weekdays[weekday]"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            @if (interval.hasError('startAfterEnd')) {
+              <span class="error">O fim deve ser depois do início.</span>
+            }
+          </div>
+        } @empty {
+          <span class="closed">Fechado</span>
+        }
+
+        @if (day.hasError('overlap')) {
+          <span class="error">Há intervalos sobrepostos neste dia.</span>
+        }
+
+        <button mat-button type="button" (click)="addInterval(weekday)">
+          <mat-icon>add</mat-icon>
+          Intervalo
+        </button>
+      </div>
+    </section>
+  }
+
+  <div class="actions">
+    <button mat-flat-button (click)="save()" [disabled]="saving() || days.pristine">
+      {{ saving() ? 'Salvando...' : 'Salvar expediente' }}
+    </button>
+  </div>
+}
