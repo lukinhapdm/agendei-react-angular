@@ -23,3 +23,6 @@ coverage/
 # Supabase CLI
 supabase/.temp/
 supabase/.branches/
+
+# Gerado a partir das variáveis de ambiente
+apps/admin/src/environments/env.ts
