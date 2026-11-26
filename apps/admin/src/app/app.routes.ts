@@ -1,15 +1,18 @@
 import { Routes } from '@angular/router';
 import { Shell } from './layout/shell/shell';
+import { authGuard, guestGuard } from './core/auth/auth.guards';
 
 export const routes: Routes = [
   {
     path: 'login',
     title: 'Entrar · Agendei',
+    canActivate: [guestGuard],
     loadComponent: () => import('./features/auth/login-page').then((m) => m.LoginPage),
   },
   {
     path: '',
     component: Shell,
+    canActivate: [authGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {

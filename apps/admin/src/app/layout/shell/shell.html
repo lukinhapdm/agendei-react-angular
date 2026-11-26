@@ -26,6 +26,11 @@
         </button>
       }
       <span>Painel do negócio</span>
+      <span class="spacer"></span>
+      <span class="email">{{ userEmail() }}</span>
+      <button mat-icon-button aria-label="Sair" (click)="signOut()">
+        <mat-icon>logout</mat-icon>
+      </button>
     </mat-toolbar>
 
     <main class="content">

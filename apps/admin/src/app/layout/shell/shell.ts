@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { map } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NAV_ITEMS } from './nav-items';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-shell',
@@ -26,6 +27,10 @@ import { NAV_ITEMS } from './nav-items';
   styleUrl: './shell.scss',
 })
 export class Shell {
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
+
+  protected readonly userEmail = computed(() => this.auth.user()?.email);
   protected readonly navItems = NAV_ITEMS;
 
   // Converte o Observable do CDK em signal para usar direto no template
@@ -37,4 +42,9 @@ export class Shell {
   );
 
   protected readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));
+
+  async signOut() {
+    await this.auth.signOut();
+    await this.router.navigateByUrl('/login');
+  }
 }

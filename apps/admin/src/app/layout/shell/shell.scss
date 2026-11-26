@@ -21,3 +21,18 @@
 .content {
   padding: 24px;
 }
+
+.spacer {
+  flex: 1;
+}
+
+.email {
+  font: var(--mat-sys-body-medium);
+  margin-right: 8px;
+}
+
+@media (max-width: 599px) {
+  .email {
+    display: none;
+  }
+}
