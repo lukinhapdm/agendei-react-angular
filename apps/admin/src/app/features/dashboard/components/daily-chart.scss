@@ -1,0 +1,99 @@
+.chart {
+  position: relative;
+  height: 160px;
+  // Espaço para o tooltip não cobrir o título
+  margin: 32px 0 0 24px;
+}
+
+.gridline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  span {
+    position: absolute;
+    left: -24px;
+    top: -8px;
+    font: var(--mat-sys-label-small);
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  &.top {
+    top: 0;
+  }
+
+  &.base {
+    bottom: 0;
+  }
+}
+
+.bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: 2px;
+}
+
+.slot {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  outline: none;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--mat-sys-surface-container-high);
+
+    .tooltip {
+      opacity: 1;
+    }
+  }
+}
+
+.bar {
+  width: 60%;
+  max-width: 28px;
+  min-height: 0;
+  border-radius: 4px 4px 0 0;
+  background: var(--mat-sys-primary);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font: var(--mat-sys-label-small);
+  background: var(--mat-sys-inverse-surface);
+  color: var(--mat-sys-inverse-on-surface);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.axis {
+  display: flex;
+  gap: 2px;
+  margin-left: 24px;
+  padding-top: 4px;
+
+  span {
+    flex: 1;
+    text-align: center;
+    font: var(--mat-sys-label-small);
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

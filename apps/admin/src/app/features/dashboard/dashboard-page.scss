@@ -1,0 +1,76 @@
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+}
+
+.label {
+  font: var(--mat-sys-label-large);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.value {
+  font: var(--mat-sys-headline-medium);
+}
+
+.hint {
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.panel {
+  padding: 16px;
+
+  h2 {
+    margin: 0 0 16px;
+    font: var(--mat-sys-title-medium);
+  }
+}
+
+.rank {
+  display: grid;
+  grid-template-columns: minmax(100px, 160px) 1fr 32px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.rank-name {
+  font: var(--mat-sys-body-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rank-track {
+  height: 12px;
+}
+
+.rank-bar {
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background: var(--mat-sys-primary);
+}
+
+.rank-count {
+  text-align: right;
+  font: var(--mat-sys-label-large);
+}
+
+.empty {
+  color: var(--mat-sys-outline);
+}

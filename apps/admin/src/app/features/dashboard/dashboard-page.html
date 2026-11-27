@@ -1,0 +1,58 @@
+<h1>Dashboard</h1>
+
+@if (metrics.isLoading() && !metrics.hasValue()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+@if (metrics.error()) {
+  <p role="alert">Não foi possível carregar as métricas.</p>
+}
+
+@if (metrics.value(); as m) {
+  <section class="tiles">
+    <mat-card appearance="outlined" class="tile">
+      <span class="label">Hoje</span>
+      <span class="value">{{ m.today_count }}</span>
+      <span class="hint">agendamentos ativos</span>
+    </mat-card>
+    <mat-card appearance="outlined" class="tile">
+      <span class="label">Próximos 7 dias</span>
+      <span class="value">{{ m.next_7_days_count }}</span>
+      <span class="hint">agendamentos ativos</span>
+    </mat-card>
+    <mat-card appearance="outlined" class="tile">
+      <span class="label">Faturado no mês</span>
+      <span class="value">{{ m.month_revenue_cents / 100 | currency: 'BRL' }}</span>
+      <span class="hint">previsto: {{ m.month_expected_cents / 100 | currency: 'BRL' }}</span>
+    </mat-card>
+    <mat-card appearance="outlined" class="tile">
+      <span class="label">Cancelamentos (30 dias)</span>
+      <span class="value">
+        {{ m.cancellation_rate_30d === null ? '—' : (m.cancellation_rate_30d | percent: '1.0-1') }}
+      </span>
+      <span class="hint">dos agendamentos do período</span>
+    </mat-card>
+  </section>
+
+  <section class="panels">
+    <mat-card appearance="outlined" class="panel">
+      <h2>Agendamentos nos próximos 14 dias</h2>
+      <app-daily-chart [data]="m.daily_next_14_days" />
+    </mat-card>
+
+    <mat-card appearance="outlined" class="panel">
+      <h2>Serviços mais agendados</h2>
+      @for (service of m.top_services_30d; track service.name) {
+        <div class="rank">
+          <span class="rank-name">{{ service.name }}</span>
+          <div class="rank-track">
+            <div class="rank-bar" [style.width.%]="(service.count / topMax()) * 100"></div>
+          </div>
+          <span class="rank-count">{{ service.count }}</span>
+        </div>
+      } @empty {
+        <p class="empty">Ainda sem agendamentos.</p>
+      }
+    </mat-card>
+  </section>
+}

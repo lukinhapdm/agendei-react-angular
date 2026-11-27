@@ -260,6 +260,7 @@ export type Database = {
           slot_start: string;
         }[];
       };
+      get_dashboard_metrics: { Args: { p_business_id: string }; Returns: Json };
       is_business_owner: { Args: { target_business_id: string }; Returns: boolean };
       replace_working_hours: { Args: { p_business_id: string; p_hours: Json }; Returns: undefined };
     };

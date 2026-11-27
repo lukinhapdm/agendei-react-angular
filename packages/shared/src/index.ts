@@ -3,3 +3,4 @@ export * from './appointment';
 export * from './slug';
 export * from './timezone';
 export * from './date';
+export * from './dashboard';

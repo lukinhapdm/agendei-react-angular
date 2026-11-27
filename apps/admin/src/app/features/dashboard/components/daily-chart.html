@@ -1,0 +1,32 @@
+<div class="chart" role="img" [attr.aria-label]="'Agendamentos por dia, máximo de ' + max()">
+  <div class="gridline top">
+    <span>{{ max() }}</span>
+  </div>
+  <div class="gridline base"><span>0</span></div>
+  <div class="bars">
+    @for (bar of bars(); track bar.date) {
+      <div class="slot" tabindex="0" [attr.aria-label]="bar.label + ': ' + bar.count">
+        <div class="bar" [style.height.%]="bar.percent"></div>
+        <span class="tooltip">{{ bar.label }} · {{ bar.count }}</span>
+      </div>
+    }
+  </div>
+</div>
+<div class="axis" aria-hidden="true">
+  @for (bar of bars(); track bar.date) {
+    <span>{{ bar.short }}</span>
+  }
+</div>
+
+<!-- Alternativa em tabela para leitores de tela -->
+<table class="sr-only">
+  <caption>
+    Agendamentos por dia
+  </caption>
+  @for (bar of bars(); track bar.date) {
+    <tr>
+      <th scope="row">{{ bar.label }}</th>
+      <td>{{ bar.count }}</td>
+    </tr>
+  }
+</table>
