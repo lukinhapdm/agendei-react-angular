@@ -18,11 +18,19 @@
           }
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field class="with-hint">
           <mat-label>Endereço da sua página</mat-label>
-          <span matTextPrefix>/b/</span>
-          <input matInput formControlName="slug" (input)="onSlugInput()" />
-          <mat-hint>Seus clientes vão agendar por este link</mat-hint>
+          <input
+            matInput
+            formControlName="slug"
+            placeholder="meu-negocio"
+            (input)="onSlugInput()"
+          />
+          <mat-hint
+            >Seus clientes vão agendar em /b/{{
+              form.controls.slug.value || 'meu-negocio'
+            }}</mat-hint
+          >
           @if (form.controls.slug.hasError('required')) {
             <mat-error>Informe o endereço.</mat-error>
           } @else if (form.controls.slug.hasError('pattern')) {
