@@ -1,0 +1,57 @@
+.toolbar,
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.toolbar {
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0 0 0 8px;
+  font: var(--mat-sys-title-medium);
+  text-transform: capitalize;
+}
+
+.days {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  max-width: 720px;
+
+  &.week {
+    max-width: none;
+    grid-template-columns: repeat(7, minmax(160px, 1fr));
+    overflow-x: auto;
+  }
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h3 {
+    margin: 0;
+    font: var(--mat-sys-title-small);
+    text-transform: capitalize;
+  }
+
+  &.today h3 {
+    color: var(--mat-sys-primary);
+  }
+}
+
+.empty {
+  color: var(--mat-sys-outline);
+  margin: 0;
+}
+
+@media (max-width: 599px) {
+  .days.week {
+    grid-template-columns: 1fr;
+  }
+}

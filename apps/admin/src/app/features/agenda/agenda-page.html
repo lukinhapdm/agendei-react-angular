@@ -1,0 +1,49 @@
+<header class="toolbar">
+  <h1>Agenda</h1>
+  <mat-button-toggle-group
+    [value]="view()"
+    (change)="view.set($event.value)"
+    aria-label="Modo de visualização"
+  >
+    <mat-button-toggle value="day">Dia</mat-button-toggle>
+    <mat-button-toggle value="week">Semana</mat-button-toggle>
+  </mat-button-toggle-group>
+</header>
+
+<nav class="nav">
+  <button mat-icon-button (click)="move(-1)" aria-label="Anterior">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <button mat-stroked-button (click)="goToday()" [disabled]="anchor() === today">Hoje</button>
+  <button mat-icon-button (click)="move(1)" aria-label="Próximo">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+  <h2 class="title">{{ title() }}</h2>
+</nav>
+
+@if (appointments.isLoading()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+@if (appointments.error()) {
+  <p role="alert">Não foi possível carregar a agenda.</p>
+} @else {
+  <div class="days" [class.week]="view() === 'week'">
+    @for (day of byDay(); track day.date) {
+      <section class="day" [class.today]="day.date === today">
+        @if (view() === 'week') {
+          <h3>{{ dayLabel(day.date) }}</h3>
+        }
+        @for (item of day.items; track item.id) {
+          <app-appointment-card
+            [item]="item"
+            [timeZone]="timeZone"
+            (statusChange)="changeStatus(item, $event)"
+          />
+        } @empty {
+          <p class="empty">Sem agendamentos.</p>
+        }
+      </section>
+    }
+  </div>
+}

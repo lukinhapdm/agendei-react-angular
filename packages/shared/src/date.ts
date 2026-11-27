@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { addDays, format, parseISO, startOfWeek } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { TZDate } from '@date-fns/tz';
 
@@ -28,4 +28,21 @@ export function formatInZone(iso: string, timeZone: string, pattern: string): st
 // Postgres devolve "09:00:00"; a UI usa "09:00"
 export function trimSeconds(time: string): string {
   return time.slice(0, 5);
+}
+
+// Datas "de calendário" (yyyy-MM-dd) no fuso do negócio, sem horário
+export function todayInZone(timeZone: string): string {
+  return format(new TZDate(Date.now(), timeZone), 'yyyy-MM-dd');
+}
+
+export function addDaysToDate(date: string, days: number): string {
+  return format(addDays(parseISO(date), days), 'yyyy-MM-dd');
+}
+
+export function startOfWeekDate(date: string): string {
+  return format(startOfWeek(parseISO(date), { weekStartsOn: 1 }), 'yyyy-MM-dd');
+}
+
+export function formatDate(date: string, pattern: string): string {
+  return format(parseISO(date), pattern, { locale: ptBR });
 }

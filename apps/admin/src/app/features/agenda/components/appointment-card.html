@@ -1,0 +1,24 @@
+<div class="time">{{ time() }}</div>
+@if (nextStatuses().length) {
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Alterar status">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (status of nextStatuses(); track status) {
+      <button mat-menu-item (click)="statusChange.emit(status)">
+        Marcar como {{ statusLabel[status].toLowerCase() }}
+      </button>
+    }
+  </mat-menu>
+}
+<div class="body">
+  <strong>{{ item().service?.name }}</strong>
+  <span>{{ item().customer?.full_name || 'Cliente sem nome' }}</span>
+  @if (item().customer?.phone) {
+    <span class="muted">{{ item().customer?.phone }}</span>
+  }
+  @if (item().notes) {
+    <span class="muted">“{{ item().notes }}”</span>
+  }
+  <span class="badge">{{ statusLabel[item().status] }}</span>
+</div>
