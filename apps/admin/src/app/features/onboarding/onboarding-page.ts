@@ -10,6 +10,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { BR_TIMEZONES, SLUG_PATTERN, slugify } from '@agendei/shared';
 import { BusinessStore } from '../../core/business/business.store';
 
+import { ThemeToggle } from '../../shared/ui/theme-toggle';
+
 @Component({
   selector: 'app-onboarding-page',
   imports: [
@@ -19,6 +21,7 @@ import { BusinessStore } from '../../core/business/business.store';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    ThemeToggle,
   ],
   templateUrl: './onboarding-page.html',
   styleUrl: '../auth/login-page.scss',

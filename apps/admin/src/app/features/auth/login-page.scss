@@ -34,3 +34,9 @@
 .success {
   color: var(--mat-sys-primary);
 }
+
+.theme-toggle {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+}

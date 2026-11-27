@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { formatInZone } from '@agendei/shared';
 import { AppointmentsRealtime } from '../../core/realtime/appointments-realtime.service';
 import { NAV_ITEMS } from './nav-items';
+import { ThemeToggle } from '../../shared/ui/theme-toggle';
 import { AuthService } from '../../core/auth/auth.service';
 import { BusinessStore } from '../../core/business/business.store';
 
@@ -26,6 +27,7 @@ import { BusinessStore } from '../../core/business/business.store';
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    ThemeToggle,
   ],
   templateUrl: './shell.html',
   styleUrl: './shell.scss',

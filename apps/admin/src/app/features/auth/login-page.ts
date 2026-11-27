@@ -12,6 +12,8 @@ const ERROR_MESSAGES: Record<string, string> = {
   not_owner: 'Esta conta não é de um dono de negócio.',
 };
 
+import { ThemeToggle } from '../../shared/ui/theme-toggle';
+
 @Component({
   selector: 'app-login-page',
   imports: [
@@ -21,6 +23,7 @@ const ERROR_MESSAGES: Record<string, string> = {
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    ThemeToggle,
   ],
   templateUrl: './login-page.html',
   styleUrl: './login-page.scss',

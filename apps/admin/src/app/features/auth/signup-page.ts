@@ -11,6 +11,8 @@ const ERROR_MESSAGES: Record<string, string> = {
   'User already registered': 'Já existe uma conta com este e-mail.',
 };
 
+import { ThemeToggle } from '../../shared/ui/theme-toggle';
+
 @Component({
   selector: 'app-signup-page',
   imports: [
@@ -20,6 +22,7 @@ const ERROR_MESSAGES: Record<string, string> = {
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    ThemeToggle,
   ],
   templateUrl: './signup-page.html',
   styleUrl: './login-page.scss',
