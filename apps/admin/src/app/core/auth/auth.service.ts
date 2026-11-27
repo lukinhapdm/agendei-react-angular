@@ -52,6 +52,9 @@ export class AuthService {
       },
     });
     if (error) throw error;
+    // Com confirmação de e-mail ligada, o Supabase não dá erro para e-mail repetido:
+    // devolve um usuário "falso" sem identidades, para não revelar quem já tem conta
+    if (data.user?.identities?.length === 0) throw new Error('User already registered');
     return !!data.session;
   }
 
