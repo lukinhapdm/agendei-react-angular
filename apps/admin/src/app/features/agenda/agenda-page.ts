@@ -1,4 +1,4 @@
-import { Component, computed, inject, resource, signal } from '@angular/core';
+import { Component, computed, effect, inject, resource, signal, untracked } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,7 @@ import {
   zonedLocalToUtcIso,
 } from '@agendei/shared';
 import { BusinessStore } from '../../core/business/business.store';
+import { AppointmentsRealtime } from '../../core/realtime/appointments-realtime.service';
 import { AppointmentCard } from './components/appointment-card';
 import { AgendaRepository, type AgendaItem } from './data/agenda.repository';
 
@@ -67,6 +68,15 @@ export class AgendaPage {
     loader: ({ params }) => this.repository.listBetween(this.business.id, params.from, params.to),
     defaultValue: [],
   });
+
+  constructor() {
+    const realtime = inject(AppointmentsRealtime);
+    // Qualquer mudança no banco (novo, cancelado, confirmado) recarrega a agenda visível
+    effect(() => {
+      if (!realtime.lastChange()) return;
+      untracked(() => this.appointments.reload());
+    });
+  }
 
   protected readonly byDay = computed(() => {
     const groups = new Map<string, AgendaItem[]>(this.days().map((d) => [d, []]));

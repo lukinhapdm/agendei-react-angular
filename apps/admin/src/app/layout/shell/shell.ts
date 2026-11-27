@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, DestroyRef, computed, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
@@ -8,6 +8,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { formatInZone } from '@agendei/shared';
+import { AppointmentsRealtime } from '../../core/realtime/appointments-realtime.service';
 import { NAV_ITEMS } from './nav-items';
 import { AuthService } from '../../core/auth/auth.service';
 import { BusinessStore } from '../../core/business/business.store';
@@ -46,6 +49,27 @@ export class Shell {
   );
 
   protected readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));
+
+  constructor() {
+    const realtime = inject(AppointmentsRealtime);
+    const snackBar = inject(MatSnackBar);
+    const business = this.businessStore.business()!;
+
+    // O shell só existe com usuário logado e negócio criado, então é o lugar certo para escutar
+    realtime.start(business.id);
+    inject(DestroyRef).onDestroy(() => realtime.stop());
+
+    // effect roda de novo sempre que um signal lido aqui muda
+    effect(() => {
+      const change = realtime.lastChange();
+      if (change?.eventType !== 'INSERT') return;
+      const when = formatInZone(change.new.starts_at, business.timezone, "dd/MM 'às' HH:mm");
+      snackBar
+        .open(`Novo agendamento: ${when}`, 'Ver agenda', { duration: 8000 })
+        .onAction()
+        .subscribe(() => this.router.navigateByUrl('/agenda'));
+    });
+  }
 
   async signOut() {
     await this.auth.signOut();
