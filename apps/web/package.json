@@ -8,7 +8,8 @@
     "typecheck": "tsc -b --noEmit",
     "preview": "vite preview",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@agendei/shared": "workspace:*",
@@ -21,6 +22,7 @@
     "react-router": "^7.18.7"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@tailwindcss/vite": "^4.3.5",
     "@tanstack/react-query-devtools": "^5.108.4",
     "@testing-library/jest-dom": "^6.9.1",

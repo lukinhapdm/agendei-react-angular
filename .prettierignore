@@ -4,3 +4,6 @@ dist
 coverage
 pnpm-lock.yaml
 apps/admin/src/environments/env.ts
+dist-e2e
+playwright-report
+test-results

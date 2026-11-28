@@ -10,6 +10,9 @@ dist/
 .turbo/
 .angular/
 coverage/
+dist-e2e/
+playwright-report/
+test-results/
 
 # Env
 .env

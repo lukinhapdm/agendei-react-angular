@@ -7,7 +7,17 @@ import globals from 'globals';
 import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/.angular/**', '**/coverage/**', '**/.turbo/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/.angular/**',
+      '**/coverage/**',
+      '**/.turbo/**',
+      '**/dist-e2e/**',
+      '**/playwright-report/**',
+      '**/test-results/**',
+    ],
+  },
 
   {
     files: ['**/*.{ts,tsx}'],
