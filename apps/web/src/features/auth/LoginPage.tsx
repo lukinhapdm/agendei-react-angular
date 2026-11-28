@@ -1,7 +1,7 @@
 import { isAuthApiError } from '@supabase/supabase-js';
 import { useActionState } from 'react';
 import { useSearchParams } from 'react-router';
-import { safeRedirectPath } from '../../core/auth/guards';
+import { safeRedirectPath } from '../../shared/lib/redirect';
 import { sendMagicLink } from './data/auth.repository';
 
 type LoginState =

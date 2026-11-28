@@ -1,10 +1,6 @@
 import { redirect, type LoaderFunctionArgs } from 'react-router';
+import { safeRedirectPath } from '../../shared/lib/redirect';
 import { supabase } from '../supabase/client';
-
-// Aceita só caminhos internos; "//site.com" ou "https://..." viraria open redirect
-export function safeRedirectPath(path: string | null): string {
-  return path && path.startsWith('/') && !path.startsWith('//') ? path : '/';
-}
 
 // getSession espera o supabase terminar de ler a sessão (inclusive do link mágico)
 export async function requireAuth({ request }: LoaderFunctionArgs) {
