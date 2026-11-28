@@ -27,6 +27,14 @@ export const router = createBrowserRouter([
         },
       },
       {
+        path: 'b/:slug/confirmar',
+        // Sem sessão, vai ao login e volta para cá com a mesma escolha
+        loader: requireAuth,
+        lazy: {
+          Component: async () => (await import('../features/booking/ConfirmPage')).ConfirmPage,
+        },
+      },
+      {
         path: 'entrar',
         loader: guestOnly,
         lazy: { Component: async () => (await import('../features/auth/LoginPage')).LoginPage },
