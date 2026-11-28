@@ -6,6 +6,8 @@ import { NotFoundPage } from './NotFoundPage';
 export const router = createBrowserRouter([
   {
     Component: RootLayout,
+    // Exibido enquanto o chunk da primeira rota ainda está baixando
+    HydrateFallback: () => null,
     children: [
       {
         index: true,
