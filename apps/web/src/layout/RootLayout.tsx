@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet, useNavigation } from 'react-router';
 import { ThemeToggle } from '../shared/ui/ThemeToggle';
+import { UserMenu } from './UserMenu';
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `rounded-md px-3 py-2 text-sm font-medium ${
@@ -26,9 +27,7 @@ export function RootLayout() {
             <NavLink to="/meus-agendamentos" className={navLinkClass}>
               Meus agendamentos
             </NavLink>
-            <NavLink to="/entrar" className={navLinkClass}>
-              Entrar
-            </NavLink>
+            <UserMenu linkClass={navLinkClass} />
             <ThemeToggle />
           </nav>
         </div>

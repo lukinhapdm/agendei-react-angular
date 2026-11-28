@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router';
+import { guestOnly, requireAuth } from '../core/auth/guards';
 import { RootLayout } from '../layout/RootLayout';
 import { NotFoundPage } from './NotFoundPage';
 
@@ -27,10 +28,13 @@ export const router = createBrowserRouter([
       },
       {
         path: 'entrar',
+        loader: guestOnly,
         lazy: { Component: async () => (await import('../features/auth/LoginPage')).LoginPage },
       },
       {
         path: 'meus-agendamentos',
+        // Guard roda antes de baixar o chunk da página
+        loader: requireAuth,
         lazy: {
           Component: async () =>
             (await import('../features/appointments/MyAppointmentsPage')).MyAppointmentsPage,

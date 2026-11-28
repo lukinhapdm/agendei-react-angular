@@ -1,6 +1,7 @@
 import { formatInZone, todayInZone } from '@agendei/shared';
 import { useQuery } from '@tanstack/react-query';
-import { Link, useParams, useSearchParams } from 'react-router';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router';
+import { useAuth } from '../../core/auth/auth-context';
 import { nextDays, weekdayOf } from '../../shared/lib/date';
 import { formatDuration, formatPrice } from '../../shared/lib/format';
 import { businessBySlugQuery } from '../business/data/business.queries';
@@ -13,6 +14,8 @@ export function BookingPage() {
   const { slug = '' } = useParams<{ slug: string }>();
   const [params, setParams] = useSearchParams();
   const { data: business, isPending, isError } = useQuery(businessBySlugQuery(slug));
+  const { session } = useAuth();
+  const location = useLocation();
 
   if (isPending) return <p className="text-slate-500">Carregando…</p>;
   if (isError) return <p role="alert">Não foi possível carregar o negócio.</p>;
@@ -101,14 +104,23 @@ export function BookingPage() {
               {formatInZone(slot, business.timezone, "EEEE, dd 'de' MMMM 'às' HH:mm")}
             </span>
           </p>
-          <button
-            type="button"
-            disabled
-            title="A confirmação chega na etapa 4.6"
-            className="rounded-lg bg-brand-600 px-4 py-2 font-medium text-white disabled:opacity-50"
-          >
-            Continuar
-          </button>
+          {session ? (
+            <button
+              type="button"
+              disabled
+              title="A confirmação chega na etapa 4.6"
+              className="rounded-lg bg-brand-600 px-4 py-2 font-medium text-white disabled:opacity-50"
+            >
+              Continuar
+            </button>
+          ) : (
+            <Link
+              to={`/entrar?redirect=${encodeURIComponent(location.pathname + location.search)}`}
+              className="rounded-lg bg-brand-600 px-4 py-2 font-medium text-white hover:bg-brand-700"
+            >
+              Entrar para continuar
+            </Link>
+          )}
         </div>
       )}
     </article>
