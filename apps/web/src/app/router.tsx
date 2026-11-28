@@ -20,6 +20,12 @@ export const router = createBrowserRouter([
         },
       },
       {
+        path: 'b/:slug/agendar',
+        lazy: {
+          Component: async () => (await import('../features/booking/BookingPage')).BookingPage,
+        },
+      },
+      {
         path: 'entrar',
         lazy: { Component: async () => (await import('../features/auth/LoginPage')).LoginPage },
       },
