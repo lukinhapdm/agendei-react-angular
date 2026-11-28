@@ -1,5 +1,17 @@
 @import 'tailwindcss';
 
+/* dark: vale no tema escuro escolhido ou no automático com o sistema escuro */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where([data-theme='system'], [data-theme='system'] *) {
+      @slot;
+    }
+  }
+}
+
 @theme {
   --color-brand-50: oklch(0.97 0.02 265);
   --color-brand-600: oklch(0.51 0.21 265);
