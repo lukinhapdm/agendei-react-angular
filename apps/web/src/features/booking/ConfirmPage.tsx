@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { useAuth } from '../../core/auth/auth-context';
 import { formatDuration, formatPrice } from '../../shared/lib/format';
+import { appointmentKeys } from '../appointments/data/appointments.queries';
 import { businessBySlugQuery, businessKeys } from '../business/data/business.queries';
 import { profileKeys, ownProfileQuery } from '../profile/data/profile.queries';
 import { updateOwnProfile } from '../profile/data/profile.repository';
@@ -38,7 +39,7 @@ export function ConfirmPage() {
     onSuccess: () => {
       // Horários livres e "meus agendamentos" ficaram desatualizados
       queryClient.invalidateQueries({ queryKey: businessKeys.all });
-      queryClient.invalidateQueries({ queryKey: ['appointments'] });
+      queryClient.invalidateQueries({ queryKey: appointmentKeys.all });
       queryClient.invalidateQueries({ queryKey: profileKeys.own(userId) });
       navigate('/meus-agendamentos', { state: { booked: true } });
     },
